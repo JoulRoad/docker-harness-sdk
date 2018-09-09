@@ -1,4 +1,4 @@
-# docker-harness-dev [![Image Version](https://images.microbadger.com/badges/version/actionml/harness-dev.svg)](https://microbadger.com/images/actionml/harness-dev)
+# Harness build (SDK) docker container [![Image Version](https://images.microbadger.com/badges/version/actionml/harness-dev.svg)](https://microbadger.com/images/actionml/harness-dev)
 
 Harness build container with all needed SDK provided.
 

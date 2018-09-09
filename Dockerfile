@@ -1,10 +1,10 @@
 FROM actionml/vw:10bd09ab-jni
 
 ARG version
-LABEL com.actionml.harnessdev.vendor=ActionML \
-      com.actionml.harnessdev.version=$version
+LABEL com.actionml.scala.vendor=ActionML \
+      com.actionml.scala.version=$version
 
-ENV SCALA_VERSION=2.11.12 \
+ENV SCALA_VERSION=${version} \
     SCALA_HOME=/usr/share/scala
 
 # Note: overrides JAVA_HOME set by actionml/vw:jni
@@ -19,7 +19,7 @@ RUN set -x && apk add --update --no-cache openjdk8 && \
 
 ## Install Scala
 #
-#  Note: version 2.11 is compatible with openjdk 1.8!
+#  Note: specific version MUST BE COMPATIBLE with openjdk 1.8!
 RUN apk add --no-cache --virtual=.deps tar && \
     curl -#fL -o /tmp/scala.tgz \
       "https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz" && \

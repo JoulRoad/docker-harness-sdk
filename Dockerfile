@@ -1,8 +1,9 @@
 FROM actionml/vw:10bd09ab-jni
 
+ARG release_version
 ARG version
 LABEL com.actionml.scala.vendor=ActionML \
-      com.actionml.scala.version=$version
+      com.actionml.scala.version=${release_version}
 
 ENV SCALA_VERSION=${version} \
     SCALA_HOME=/usr/share/scala \

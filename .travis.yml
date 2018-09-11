@@ -23,6 +23,7 @@ script:
   - |-
       docker-build -v $VERSION -l "$LATESTS" "$NAMESPACE/$PROJECT" \
         --build-arg version=${VERSION%-*} \
+        --build-arg release_version=${VERSION} \
           -f ./Dockerfile ./ || exit $?
 
 # deploy containers to hub.docker.com

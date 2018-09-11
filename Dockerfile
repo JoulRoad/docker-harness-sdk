@@ -28,10 +28,9 @@ RUN apk add --no-cache --virtual=.deps tar && \
   # odd but scala this stub (omits "cat: ...release: No such file or directory")
     java -version &> ${JAVA_HOME}/release && \
   # link to /usr/bin
-    ln -s ./bin/* /usr/bin/ && \
+    rm -r ./bin/*.bat doc man && ln -s ${SCALA_HOME}/bin/* /usr/bin/ && \
   # cleanup
-    rm -r man doc ./bin/*.bat /tmp/* && \
-    apk del .deps
+    rm -rf /tmp/* && apk del .deps
 
 
 ## Install Python3 runtime

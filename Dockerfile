@@ -5,7 +5,8 @@ LABEL com.actionml.scala.vendor=ActionML \
       com.actionml.scala.version=$version
 
 ENV SCALA_VERSION=${version} \
-    SCALA_HOME=/usr/share/scala
+    SCALA_HOME=/usr/share/scala \
+    SDK_VERBOSE=no
 
 # Note: overrides JAVA_HOME set by actionml/vw:jni
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
@@ -50,3 +51,8 @@ RUN apk add --no-cache --update python3 && \
 #
 #  note: minimum to begin with
 RUN  apk add --no-cache maven
+
+## Set entrypoint
+#
+COPY /entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]

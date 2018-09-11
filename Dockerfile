@@ -7,8 +7,6 @@ LABEL com.actionml.scala.vendor=ActionML \
 
 ENV SCALA_VERSION=${version} \
     SCALA_HOME=/usr/share/scala \
-    SBT_VERSION=1.2.1 \
-    SBT_HOME=/usr/share/sbt \
     SDK_VERBOSE=no
 
 # Note: overrides JAVA_HOME set by actionml/vw:jni
@@ -36,26 +34,10 @@ RUN apk add --no-cache --virtual=.deps tar gnupg && \
     rm -rf /tmp/* && apk del .deps
 
 
-## Install Sbt
+## Install Sbt extras (https://github.com/paulp/sbt-extras)
 #
-RUN apk add --no-cache --virtual=.deps tar gnupg && \
-    cd /tmp/ && curl --remote-name-all -#SLO \
-      https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/{sbt-${SBT_VERSION}.tgz,sbt-${SBT_VERSION}.tgz.asc} && \
-    # verify sbt integrity
-    export GNUPGHOME=/tmp && \
-    for server in ha.pool.sks-keyservers.net \
-              hkp://p80.pool.sks-keyservers.net:80 \
-              keyserver.ubuntu.com \
-              hkp://keyserver.ubuntu.com:80 \
-              pgp.mit.edu; do \
-        gpg --keyserver "$server" --recv-keys 2EE0EA64E40A89B84B2DF73499E82A75642AC823 && break || echo "Trying new server..."; \
-    done && \
-    gpg --batch --verify sbt*.asc sbt*.tgz && \
-    mkdir $SBT_HOME && cd $SBT_HOME && \
-    tar xzf /tmp/sbt*.tgz --strip-component=1 && \
-    ln -s ${SBT_HOME}/bin/* /usr/bin/ && \
-    # cleanup
-    rm -rf /tmp/* && apk del .deps
+RUN curl -#SL -o /usr/bin/sbt \
+      https://git.io/sbt && chmod 0755 /usr/bin/sbt
 
 
 ## Install SDK

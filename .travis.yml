@@ -3,7 +3,7 @@ services: docker
 
 env:
   global:
-    - PROJECT=scala
+    - PROJECT=harness-sdk
     - NAMESPACE=actionml
     - PUSH_NAMESPACES=actionml
   matrix:
@@ -25,7 +25,6 @@ script:
   - |-
       docker-build -v $VERSION -f $FLAVOUR -l "$LATESTS" "$NAMESPACE/$PROJECT" \
         --build-arg version=${VERSION} \
-        --build-arg scala_version=${VERSION%-*} \
           -f ${DFDIR}/Dockerfile ./ || exit $?
 
 # deploy containers to hub.docker.com

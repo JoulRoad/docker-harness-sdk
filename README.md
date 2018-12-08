@@ -1,6 +1,6 @@
-# Scala docker container image (harness SDK) [![Image Version](https://images.microbadger.com/badges/version/actionml/scala.svg)](https://microbadger.com/images/actionml/scala)
+# Harness SDK docker container image [![Image Version](https://images.microbadger.com/badges/version/actionml/harness-sdk.svg)](https://microbadger.com/images/actionml/harness-sdk)
 
-Scala container specifically used build Harness with all needed SDK provided.
+Docker container image used to build Harness on a CI or a workstation (all library and tooling is provided).
 
 ---
 

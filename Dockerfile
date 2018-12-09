@@ -7,7 +7,7 @@ LABEL com.actionml.harness-sdk.vendor=ActionML \
 
 ENV SDK_VERBOSE=yes
 
-RUN \
+RUN cd /tmp && \
 # install alpine essential packages and build-tools
     apk add --no-cache --update curl bash git tar gnupg \
         binutils coreutils findutils file make maven && \

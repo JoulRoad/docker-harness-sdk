@@ -15,7 +15,7 @@ RUN cd /tmp && \
     apk add --no-cache --update python3 && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --upgrade pip setuptools && \
+    pip3 install --upgrade pip setuptools wheel && \
         ln -sf /usr/bin/python3 /usr/bin/python && \
         ln -sf /usr/bin/python3-config /usr/bin/python-config && \
         ln -sf /usr/bin/pydoc3 /usr/bin/pydoc && \

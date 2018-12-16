@@ -1,0 +1,44 @@
+version: 2
+jobs:
+  publish:
+    docker:
+      - image: docker:stable
+    environment:
+      - PROJECT=harness-sdk
+      - NAMESPACE=actionml
+      - PUSH_NAMESPACES=actionml
+    steps:
+      - checkout
+      - setup_remote_docker
+      -
+        run:
+          name: Install ci-scripts
+          command: |
+            echo 'export PATH=$PATH:~/ci-scripts' >> $BASH_ENV
+            echo 'REPO_SLUG=${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}' >> $BASH_ENV
+            wget -qO - https://github.com/stackfeed/ci-scripts/raw/master/install.sh | sh -s -- -r v0.2
+
+      -
+        run:
+          name: Setup dependencies
+          command: |
+            latests=$(wget -qO - https://raw.githubusercontent.com/${REPO_SLUG}/master/.latests)
+
+            printf 'export LATESTS=%s\n' ${latests} >> $BASH_ENV
+            printf 'export VERSION=%s\n' ${CIRCLE_TAG} >> $BASH_ENV
+
+      -
+        run:
+          name: Build docker image
+          command: |
+            docker-build -v $VERSION -l "$LATESTS" "$NAMESPACE/$PROJECT" \
+              --build-arg version=${VERSION} \
+                -f Dockerfile ./
+
+      # -
+      #   run:
+      #     name: Publish docker image
+      #     command: |
+      #       echo -n ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
+      #       docker image push actionml/harness:ci
+      #       docker logout
